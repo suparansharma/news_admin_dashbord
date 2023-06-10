@@ -1,0 +1,31 @@
+{
+  "name": "admin_nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^4.29.12",
+    "axios": "^1.4.0",
+    "bootstrap": "^5.2.3",
+    "chart.js": "^4.3.0",
+    "eslint": "^8.42.0",
+    "eslint-config-next": "^13.4.4",
+    "moment": "^2.29.4",
+    "next": "12.1.6",
+    "react-bootstrap": "^2.7.4",
+    "react-chartjs-2": "^5.2.0",
+    "react-data-table-component": "^7.5.3",
+    "react-icons": "^4.8.0",
+    "react-query": "^3.39.3",
+    "react-select": "^5.7.2",
+    "react-toastify": "^9.1.3"
+  },
+  "devDependencies": {
+    "@tanstack/react-query-devtools": "^4.29.12"
+  }
+}
