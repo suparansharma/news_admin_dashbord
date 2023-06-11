@@ -37,9 +37,19 @@ const LeftSidebar = () => {
                       <span className="hide-menu">users</span>
                     </a>
                     <ul aria-expanded="false" className="collapse second-level">
+                    <li className={`sidebar-item`}>
+                        
+                        <Link href="/modules/hr/users">
+                          <a className="sidebar-link">
+                            <i className="mdi mdi-drawing" />
+                            <span className="hide-menu">Users</span>
+                          </a>
+                        </Link>
+                     
+                    </li>
                       <li className={`sidebar-item`}>
                         
-                          <Link href="modules/hr/users/create">
+                          <Link href="/modules/hr/users/create">
                             <a className="sidebar-link">
                               <i className="mdi mdi-drawing" />
                               <span className="hide-menu">Add users</span>
@@ -64,14 +74,24 @@ const LeftSidebar = () => {
                       <span className="hide-menu">Category</span>
                     </a>
                     <ul aria-expanded="false" className="collapse second-level">
+                    <li className={`sidebar-item`}>
+                        
+                        <Link href="/modules/hr/category">
+                          <a className="sidebar-link">
+                            <i className="mdi mdi-drawing" />
+                            <span className="hide-menu">Categories</span>
+                          </a>
+                        </Link>
+                     
+                    </li>
                       <li className={`sidebar-item`}>
                         
-                          <a href="modules/hr/category/create">
+                          <Link href="/modules/hr/category/create">
                             <a className="sidebar-link">
                               <i className="mdi mdi-drawing" />
                               <span className="hide-menu">Add Category</span>
                             </a>
-                          </a>
+                          </Link>
                        
                       </li>
                      

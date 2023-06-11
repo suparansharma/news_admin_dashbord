@@ -43,11 +43,12 @@ const Users = () => {
     e.preventDefault();
     const body = { ...userDetails};
     const response = await post(USER_END_POINT.create(), body);
+    router.push("/modules/hr/users")
   }
 
   return (
     <>
-      <HeadSection title="Add Categorie" />
+      <HeadSection title="Add User" />
       <div className="container-fluid ">
         <div className="w-75 m-auto">
           <div className="row">

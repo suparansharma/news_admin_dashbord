@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <>
     <footer className="footer text-center mt-auto">
-      All Rights Reserved by Suparan
+      All Rights Reserved ©2023
     </footer>
 </>
   )

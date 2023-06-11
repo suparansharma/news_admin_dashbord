@@ -2,30 +2,35 @@ import Link from 'next/link';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
-import ToastMessage from '../../../../components/Toast';
-import DeleteIcon from '../../../../components/elements/DeleteIcon';
+import HeadSection from '../../../../components/HeadSection';
+import { USER_END_POINT } from "../../../../constants/api_endpoints/userEndPoints";
+import { useGetAllData } from "../../../../utils/hooks/useGetAllData";
+import { QUERY_KEYS } from "../../../../constants/queryKeys";
 import EditIcon from '../../../../components/elements/EditIcon';
 import ViewIcon from '../../../../components/elements/ViewIcon';
-import HeadSection from '../../../../components/HeadSection';
-import { del, get, post, put } from '../../../../helpers/api_helper';
-import { CATEGORIE_END_POINT } from '../../../../constants/api_endpoints/categorieEndPoints';
-import { QUERY_KEYS } from "../../../../constants/queryKeys";
-import { useGetAllData } from "../../../../utils/hooks/useGetAllData";
-import Label from "../../../../components/elements/Label";
-import Select from '../../../../components/elements/Select';
-import TextInput from "../../../../components/elements/TextInput";
-import Select2 from "../../../../components/elements/Select2";
-import moment from 'moment';
-import axios from 'axios';
-
+import DeleteIcon from '../../../../components/elements/DeleteIcon';
+import { del } from '../../../../helpers/api_helper';
+import ToastMessage from '../../../../components/Toast';
 //Delete component
 const DeleteComponent = ({ onSubmit, id, pending }) => {
 
     const [name, setName] = useState("");
     const [loading, setLoading] = useState(true);
 
+    // const fetchCategory = useCallback(async () => {
+
+    //     let isSubscribed = true;
+    //     const getTheSubject = await get(CATEGORIE_END_POINT.info(id));
+    //     setName(getTheSubject?.data?.name)
+
+    //     setLoading(true);
+    //     return () => (isSubscribed = false);
+    // }, [id]);
 
 
+    // useEffect(() => {
+    //     fetchCategory();
+    // }, [fetchCategory]);
 
     let myFormData = new FormData();
     myFormData.append("id", id);
@@ -33,7 +38,7 @@ const DeleteComponent = ({ onSubmit, id, pending }) => {
     return (
         <>
             <Modal.Body>
-                <Modal.Title>Are you sure to delete {id} ?</Modal.Title>
+                <Modal.Title>Are you sure to delete  ?</Modal.Title>
             </Modal.Body>
             <Modal.Footer>
                 <Button
@@ -48,45 +53,38 @@ const DeleteComponent = ({ onSubmit, id, pending }) => {
     );
 };
 
-const ManageCategories = () => {
+
+
+const ManageUsers = () => {
     const notify = useCallback((type, message) => {
         ToastMessage({ type, message });
     }, []);
-
     const [pending, setPending] = useState(false);
+    const [user_id, setUserId] = useState('');
+    const { data: userList, isLoading, refetch: fetchUserList } = useGetAllData(QUERY_KEYS.GET_ALL_USER_LIST, USER_END_POINT.get());
 
     //Delete  Modal
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [category_id, setCategoryId] = useState('');
-    console.log(category_id);
+
+
     const handleExitDelete = () => setShowDeleteModal(false);
     const handleOpenDelete = (id) => {
         setShowDeleteModal(true);
-        setCategoryId(id);
+        setUserId(id);
         // console.log(id);
     }
 
-    const { data: categoryList, isLoading, refetch: fetchCategoryList } = useGetAllData(QUERY_KEYS.GET_ALL_CATEGORY_LIST, CATEGORIE_END_POINT.get());
- 
 
 
 
-
-
-
-
-
-
-    //Delete Subject
+    //Delete user
     const handleDelete = async (id) => {
 
-
-
-        const deleteClass = await del(CATEGORIE_END_POINT.delete(id))
-        console.log(deleteClass);
         let isSubscribed = true;
+        // setPending(true);
+        const deleteSubject = await del(USER_END_POINT.delete(id))
 
-        if (deleteClass.deletedCount > 0) {
+        if (deleteSubject.deletedCount >= 0) {
             notify("success", "successfully deleted!");
             handleExitDelete();
             setPending(false);
@@ -96,16 +94,11 @@ const ManageCategories = () => {
             notify("error", "something went wron");
         }
 
-        fetchCategoryList();
+        fetchUserList();
         return () => isSubscribed = false;
-
-
-
     }
 
 
-
-      
 
 
     const columns = [
@@ -116,13 +109,18 @@ const ManageCategories = () => {
             width: "70px",
         },
         {
-            name: 'Subject Code',
-            selector: row => row._id,
+            name: 'Name',
+            selector: row => row.name,
             sortable: true,
         },
         {
-            name: 'Name',
-            selector: row => row.name,
+            name: 'Email',
+            selector: row => row.email,
+            sortable: true,
+        },
+        {
+            name: 'Role',
+            selector: row => row.role,
             sortable: true,
         },
         {
@@ -144,18 +142,19 @@ const ManageCategories = () => {
             <ul className="action align-items-center">
 
                 <li>
-                    <Link href={`/modules/hr/category/update/${id}`}>
-                        <a >
-                            <EditIcon />
+                    <Link href="#">
+                        <a onClick={() => handleViewOpen(id)}>
+                            <ViewIcon />
                         </a>
                     </Link>
 
                 </li>
 
                 <li>
-                    <Link href={`/modules/hr/category/view/${id}`}>
-                        <a >
-                            <ViewIcon />
+
+                    <Link href="#" >
+                        <a onClick={() => handleOpen(id)}>
+                            <EditIcon />
                         </a>
                     </Link>
 
@@ -176,7 +175,7 @@ const ManageCategories = () => {
 
     return (
         <>
-            <HeadSection title="All Category-Details" />
+            <HeadSection title="All User-Details" />
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-12">
@@ -184,15 +183,15 @@ const ManageCategories = () => {
 
                             <div className="d-flex border-bottom title-part-padding align-items-center">
                                 <div>
-                                    <h4 class="card-title mb-0">All categories</h4>
+                                    <h4 class="card-title mb-0">All Users</h4>
                                 </div>
                                 <div className="ms-auto flex-shrink-0">
-                                    <Link href="/modules/hr/category/create">
+                                    <Link href="/modules/hr/users/create">
                                         <a
                                             className="shadow rounded btn btn-primary"
 
                                         >
-                                            Add New category
+                                            Add New User
                                         </a>
                                     </Link>
 
@@ -203,18 +202,19 @@ const ManageCategories = () => {
                             {/* Delete Modal Form */}
                             <Modal show={showDeleteModal} onHide={handleExitDelete}>
                                 <Modal.Header closeButton></Modal.Header>
-                                <DeleteComponent onSubmit={handleDelete} id={category_id} pending={pending} />
+                                <DeleteComponent onSubmit={handleDelete} id={user_id} pending={pending} />
                             </Modal>
+
 
                             <div className="card-body">
                                 <div className="">
                                     <DataTable
                                         columns={columns}
-                                        data={categoryList}
+                                        data={userList}
                                         pagination
                                         highlightOnHover
                                         subHeader
-
+                                        progressPending={isLoading}
                                         subHeaderComponent={
                                             <input
                                                 type="text"
@@ -244,4 +244,4 @@ const ManageCategories = () => {
     )
 }
 
-export default ManageCategories
+export default ManageUsers

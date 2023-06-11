@@ -1,6 +1,29 @@
-import React from 'react'
-
+import Link from 'next/link'
+import { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 const NavBar = () => {
+
+  const router = useRouter();
+  const [active, setActive] = useState(false);
+
+  const logoutHandle = () => {
+   localStorage.clear();
+   router.reload();
+  };
+
+  useEffect(()=>{
+    const auth = localStorage.getItem('user');
+    var isMount = true;
+    if(auth){
+      if (isMount) {
+        setActive(true);
+      };
+      return () => {
+        isMount = false;
+      };
+      
+    }
+  },)
     return (
         <>
           <>
@@ -942,10 +965,11 @@ const NavBar = () => {
                   </a>
                   <div className="dropdown-divider"></div>
             
-                    <a href="/user/login">
+                  {!active && (
+                    <Link href="/user/login">
                       <a
                         className="dropdown-item"
-                        
+                        style={{ display: active ? "block" : "none" }}
                         href="#"
                       >
                         <i
@@ -954,13 +978,15 @@ const NavBar = () => {
                         ></i>
                         Login
                       </a>
-                    </a>
-                 
-                
+                    </Link>
+                  )}
+                  {active && (
+
                     <button
                       type="button"
                       className="dropdown-item"
-                      
+                      style={{ display: active ? "block" : "none" }}
+                      onClick={logoutHandle}
                     >
                       <i
                         data-feather="log-out"
@@ -968,6 +994,8 @@ const NavBar = () => {
                       ></i>
                       Logout
                     </button>
+
+                  )}
                   
 
                   <div className="dropdown-divider"></div>
