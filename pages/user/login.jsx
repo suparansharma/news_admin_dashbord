@@ -16,9 +16,10 @@ export default function Login() {
         event.preventDefault();
        
             const login = await post(SECURITY_END_POINT.login(), { email: email, password: password });
-            if (login.name) {
+            if (login.auth) {
                 
-                localStorage.setItem("user",JSON.stringify(login));
+                localStorage.setItem("user",JSON.stringify(login.user));
+                localStorage.setItem("token",JSON.stringify(login.auth));
                  notify("success", "successfully Login!");
                  router.push("/dashboard");
                  router.reload();

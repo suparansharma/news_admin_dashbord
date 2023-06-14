@@ -65,10 +65,29 @@ const ManageCategories = () => {
         setCategoryId(id);
         // console.log(id);
     }
+    const[categoryList,setCategoryList] = useState([]);
 
-    const { data: categoryList, isLoading, refetch: fetchCategoryList } = useGetAllData(QUERY_KEYS.GET_ALL_CATEGORY_LIST, CATEGORIE_END_POINT.get());
- 
+    // const { data: categoryList, isLoading, refetch: fetchCategoryList } = useGetAllData(QUERY_KEYS.GET_ALL_CATEGORY_LIST, CATEGORIE_END_POINT.get());
 
+    useEffect(()=>{
+        const controller = new AbortController();
+        const fetchCategoryList = async () =>{
+            // await axios.get(`http://localhost:5000/category`)
+          await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/category`, {
+            headers: {
+            //   authorization: localStorage.getItem('token')
+              'Authorization': localStorage.getItem('token')
+            }
+          })
+          .then((res) => {
+            setCategoryList(res?.data);
+          })
+          .catch((err) => {
+            console.log('Something went wrong !')
+          });
+        }
+        fetchCategoryList();
+      },[])
 
 
 

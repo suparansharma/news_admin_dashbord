@@ -91,46 +91,7 @@ const NategoryInfo = () => {
                     </div>
                 </div>
             </div>
-            <div className="col-lg-6">
-
-                <div className="card">
-                    <div className="border-bottom title-part-padding">
-                        <h4 className="card-title mb-0">Class’s under the Category</h4>
-                    </div>
-                    <div className="card-body">
-                        <div className="table-responsive">
-                            <table
-                                id="multi_col_order"
-                                className="table table-striped table-bordered display"
-                                style={{ width: "100%" }}
-                            >
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Status</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        categoryDetails?.class?.map((catg, index) => (
-                                            <tr key={index}>
-                                                <th>{catg?.classId?.name}</th>
-                                                <td>
-                                                    {catg?.classId?.status == true ?
-                                                        <button className="btn btn-primary">Active</button> :
-                                                        <button className="btn btn-danger">Inactive</button>
-                                                    }
-                                                </td>
-                                            </tr>
-                                        ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+          
 
         </div>
     </div>
