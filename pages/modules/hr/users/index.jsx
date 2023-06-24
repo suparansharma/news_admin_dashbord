@@ -17,20 +17,7 @@ const DeleteComponent = ({ onSubmit, id, pending }) => {
     const [name, setName] = useState("");
     const [loading, setLoading] = useState(true);
 
-    // const fetchCategory = useCallback(async () => {
 
-    //     let isSubscribed = true;
-    //     const getTheSubject = await get(CATEGORIE_END_POINT.info(id));
-    //     setName(getTheSubject?.data?.name)
-
-    //     setLoading(true);
-    //     return () => (isSubscribed = false);
-    // }, [id]);
-
-
-    // useEffect(() => {
-    //     fetchCategory();
-    // }, [fetchCategory]);
 
     let myFormData = new FormData();
     myFormData.append("id", id);
@@ -152,8 +139,8 @@ const ManageUsers = () => {
 
                 <li>
 
-                    <Link href="#" >
-                        <a onClick={() => handleOpen(id)}>
+                <Link href={`/modules/hr/users/update/${id}`}>
+                        <a >
                             <EditIcon />
                         </a>
                     </Link>

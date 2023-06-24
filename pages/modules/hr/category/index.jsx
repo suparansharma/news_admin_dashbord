@@ -69,8 +69,7 @@ const ManageCategories = () => {
 
     // const { data: categoryList, isLoading, refetch: fetchCategoryList } = useGetAllData(QUERY_KEYS.GET_ALL_CATEGORY_LIST, CATEGORIE_END_POINT.get());
 
-    useEffect(()=>{
-        const controller = new AbortController();
+
         const fetchCategoryList = async () =>{
             // await axios.get(`http://localhost:5000/category`)
           await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/category`, {
@@ -86,12 +85,14 @@ const ManageCategories = () => {
             console.log('Something went wrong !')
           });
         }
+  
+
+
+
+      useEffect(() => {
         fetchCategoryList();
-      },[])
-
-
-
-
+      }, [])
+    
 
 
 

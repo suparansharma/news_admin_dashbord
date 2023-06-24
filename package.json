@@ -17,6 +17,7 @@
     "eslint-config-next": "^13.4.4",
     "moment": "^2.29.4",
     "next": "12.1.6",
+    "react": "17.0.2",
     "react-bootstrap": "^2.7.4",
     "react-chartjs-2": "^5.2.0",
     "react-data-table-component": "^7.5.3",

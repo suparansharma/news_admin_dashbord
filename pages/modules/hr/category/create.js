@@ -40,6 +40,7 @@ const Categories = () => {
     e.preventDefault();
     const body = { ...categorieDetails};
     const response = await post(CATEGORIE_END_POINT.create(), body);
+    router.push(`/modules/hr/category`);
   }
 
   return (
